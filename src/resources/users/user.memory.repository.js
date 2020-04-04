@@ -1,6 +1,8 @@
+let usersData = require('../../data/data').users;
+console.log(usersData);
+
 const getAll = async () => {
-  // TODO: mock implementation. should be replaced during task development
-  return [];
+  return usersData;
 };
 
 module.exports = { getAll };
