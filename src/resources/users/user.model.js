@@ -1,16 +1,41 @@
-const uuid = require('uuid');
+const { getAll, getById, update, deleteById, create } = require('./user.memory.repository');
 
 class User {
-  constructor({
-    id = uuid(),
-    name = 'USER',
-    login = 'user',
-    password = 'P@55w0rd'
-  } = {}) {
-    this.id = id;
-    this.name = name;
-    this.login = login;
-    this.password = password;
+  constructor() {}
+
+  static getAll(){
+    return new Promise(async resolve => {
+      const users = await getAll();
+      resolve(users.map(User.toResponse));
+    })
+  }
+
+  static getById(id){
+    return new Promise(async resolve => {
+      const user = await getById(id);
+      resolve(User.toResponse(user));
+    })
+  }
+
+  static create(data){
+    return new Promise(async resolve => {
+      const user = await create(data);
+      resolve(User.toResponse(user));
+    })
+  }
+
+  static update(id, data){
+    return new Promise(async resolve => {
+      const user = await update(id, data);
+      resolve(User.toResponse(user));
+    })
+  }
+
+  static deleteById(id){
+    return new Promise(async resolve => {
+      const status = await deleteById(id);
+      resolve(status);
+    })
   }
 
   static toResponse(user) {
