@@ -31,11 +31,11 @@ const update = async (boardId, taskId, data) => {
 const deleteTaskById = async (boardId, taskId) => {
   let isDeleted = false;
   tasksData = tasksData.filter(task => {
-    if(task.id !== taskId && task.boardId !== (boardId ? boardId : task.boardId)){
-      return true;
+    if((taskId ? task.id === taskId : true) &&  boardId === task.boardId){
+      return false;
     }
     isDeleted = true;
-    return false;
+    return true;
   });
   return isDeleted;
 };
