@@ -5,7 +5,7 @@ const getAll = async () => {
   return usersData;
 };
 
-const getById = async id => { 
+const getById = async id => {
   return usersData.find(user => user.id === id);
 };
 
@@ -15,26 +15,26 @@ const create = async data => {
 };
 
 const update = async (id, data) => {
-  let updatedData ={};
+  let updatedData = {};
   usersData = usersData.map(user => {
-    if(user.id === id){
-      updatedData = {...user, ...data};
+    if (user.id === id) {
+      updatedData = { ...user, ...data };
       user = updatedData;
     }
     return user;
-  })
+  });
   return updatedData;
 };
 
 const deleteById = async id => {
   let isDeleted = false;
   usersData = usersData.filter(user => {
-    if(user.id !== id){
+    if (user.id !== id) {
       return true;
     }
     isDeleted = true;
     return false;
-  })
+  });
   unassignUser(id);
   return isDeleted;
 };

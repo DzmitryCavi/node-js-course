@@ -4,7 +4,7 @@ const getAll = async () => {
   return boardsData;
 };
 
-const getById = async id => { 
+const getById = async id => {
   return boardsData.find(board => board.id === id);
 };
 
@@ -14,26 +14,26 @@ const create = async data => {
 };
 
 const update = async (id, data) => {
-  let updatedData ={};
+  let updatedData = {};
   boardsData = boardsData.map(board => {
-    if(board.id === id){
-      updatedData = {...board, ...data};
+    if (board.id === id) {
+      updatedData = { ...board, ...data };
       board = updatedData;
     }
     return board;
-  })
+  });
   return updatedData;
 };
 
 const deleteById = async id => {
   let isDeleted = false;
   boardsData = boardsData.filter(board => {
-    if(board.id !== id){
+    if (board.id !== id) {
       return true;
     }
     isDeleted = true;
     return false;
-  })
+  });
   deleteTaskById(id);
   return isDeleted;
 };

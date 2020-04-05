@@ -1,46 +1,37 @@
-const { getAll, getById, update, deleteById, create } = require('./boards.memory.repository');
+const {
+  getAll,
+  getById,
+  update,
+  deleteById,
+  create
+} = require('./boards.memory.repository');
 
 class Board {
   constructor() {}
 
-  static getAll(){
-    return new Promise(async resolve => {
-      const boards = await getAll();
-      resolve(boards);
-    })
+  static async getAll() {
+    const boards = await getAll();
+    return boards;
   }
 
-  static getById(id){
-    return new Promise(async resolve => {
-      const board = await getById(id);
-      resolve(board);
-    })
+  static async getById(id) {
+    const board = await getById(id);
+    return board;
   }
 
-  static create(data){
-    return new Promise(async resolve => {
-      const board = await create(data);
-      resolve(board);
-    })
+  static async create(data) {
+    const board = await create(data);
+    return board;
   }
 
-  static update(id, data){
-    return new Promise(async resolve => {
-      const board = await update(id, data);
-      resolve(board);
-    })
+  static async update(id, data) {
+    const board = await update(id, data);
+    return board;
   }
 
-  static deleteById(id){
-    return new Promise(async resolve => {
-      const status = await deleteById(id);
-      resolve(status);
-    })
-  }
-
-  static toResponse(board) {
-    const { id, title, columns } = board;
-    return { id, title, columns };
+  static async deleteById(id) {
+    const status = await deleteById(id);
+    return status;
   }
 }
 

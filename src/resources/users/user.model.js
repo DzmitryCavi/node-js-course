@@ -1,46 +1,38 @@
-const { getAll, getById, update, deleteById, create } = require('./user.memory.repository');
+const {
+  getAll,
+  getById,
+  update,
+  deleteById,
+  create
+} = require('./user.memory.repository');
 
 class User {
   constructor() {}
 
-  static getAll(){
-    return new Promise(async resolve => {
-      const users = await getAll();
-      resolve(users.map(User.toResponse));
-    })
+  static async getAll() {
+    const users = await getAll();
+    return users;
   }
 
-  static getById(id){
-    return new Promise(async resolve => {
-      const user = await getById(id);
-      resolve(User.toResponse(user));
-    })
+  static async getById(id) {
+    const user = await getById(id);
+    return user;
   }
 
-  static create(data){
-    return new Promise(async resolve => {
-      const user = await create(data);
-      resolve(User.toResponse(user));
-    })
-  }
-
-  static update(id, data){
-    return new Promise(async resolve => {
-      const user = await update(id, data);
-      resolve(User.toResponse(user));
-    })
-  }
-
-  static deleteById(id){
-    return new Promise(async resolve => {
-      const status = await deleteById(id);
-      resolve(status);
-    })
-  }
-
-  static toResponse(user) {
+  static async create(data) {
+    const user = await create(data);
     const { id, name, login } = user;
     return { id, name, login };
+  }
+
+  static async update(id, data) {
+    const user = await update(id, data);
+    return user;
+  }
+
+  static async deleteById(id) {
+    const status = await deleteById(id);
+    return status;
   }
 }
 
