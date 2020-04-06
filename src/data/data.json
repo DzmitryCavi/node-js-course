@@ -1,0 +1,33 @@
+{
+    "users":[{
+        "id": "1f7d5f95-7515-4b29-8d20-31f87c2e304f",
+        "name": "TEST_USER",
+        "login": "test_user",
+        "password": "T35t_P@55w0rd"
+      }],
+    "boards":[{
+        "id": "0c5c99e1-b78b-4d48-a4a9-266a84c5aa42",
+        "title": "Autotest board",
+        "columns": [
+          {
+            "id": "09e92aa9-22ec-4730-bc7c-1ef40cd4e998",
+            "title": "Backlog",
+            "order": 1
+          },
+          {
+            "id": "98b4169f-3fd2-43cb-8eb9-9477eba5d902",
+            "title": "Sprint",
+            "order": 2
+          }
+        ]
+      }],
+    "tasks":[ {
+        "id": "1f7d5f95-7515-4b29-8d20-31f87c2e3056",
+        "title": "Task 1",
+        "order": 0,
+        "description": "Description 1",
+        "userId": "1f7d5f95-7515-4b29-8d20-31f87c2e304f",
+        "boardId": "0c5c99e1-b78b-4d48-a4a9-266a84c5aa42",
+        "columnId": "09e92aa9-22ec-4730-bc7c-1ef40cd4e998"
+      }]
+}
