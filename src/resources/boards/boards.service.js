@@ -1,39 +1,9 @@
-const Board = require('./boards.model');
-const uuid = require('uuid');
+const boardsRepo = require('./boards.memory.repository');
 
-const getAll = (req, res) => {
-  Board.getAll().then(result => {
-    res.status(200).json(result);
-  });
-};
-
-const getById = (req, res) => {
-  Board.getById(req.params.id).then(result => {
-    if (result) {
-      res.status(200).json(result);
-    } else {
-      res.status(404).json();
-    }
-  });
-};
-
-const create = (req, res) => {
-  req.body.id = uuid();
-  Board.create(req.body).then(result => {
-    res.status(200).json(result);
-  });
-};
-
-const update = (req, res) => {
-  Board.update(req.params.id, req.body).then(result => {
-    res.status(200).json(result);
-  });
-};
-
-const deleteById = (req, res) => {
-  Board.deleteById(req.params.id).then(result => {
-    res.status(200).json(result);
-  });
-};
+const getAll = () => boardsRepo.getAll();
+const getById = id => boardsRepo.getById(id);
+const create = board => boardsRepo.create(board);
+const update = (id, data) => boardsRepo.update(id, data);
+const deleteById = id => boardsRepo.deleteById(id);
 
 module.exports = { getAll, getById, update, deleteById, create };

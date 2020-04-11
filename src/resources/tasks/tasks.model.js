@@ -1,36 +1,26 @@
-const {
-  getByBoardId,
-  getByTaskIdAndBoardId,
-  update,
-  deleteTaskById,
-  create
-} = require('./tasks.memory.repository');
+const uuid = require('uuid');
 
 class Task {
-  constructor() {}
-  static async getByBoardId(boardId) {
-    const tasks = await getByBoardId(boardId);
-    return tasks;
+  constructor({
+    id = uuid(),
+    title = 'default task',
+    order = 0,
+    description = 'default description',
+    userId = null,
+    boardId = null,
+    columnId = null
+  } = {}) {
+    this.id = id;
+    this.title = title;
+    this.order = order;
+    this.description = description;
+    this.userId = userId;
+    this.boardId = boardId;
+    this.columnId = columnId;
   }
-
-  static async getByTaskIdAndBoardId(boardId, taskId) {
-    const task = await getByTaskIdAndBoardId(boardId, taskId);
-    return task;
-  }
-
-  static async create(data) {
-    const task = await create(data);
-    return task;
-  }
-
-  static async update(boardId, taskId, data) {
-    const task = await update(boardId, taskId, data);
-    return task;
-  }
-
-  static async deleteTaskById(boardId, taskId) {
-    const status = await deleteTaskById(boardId, taskId);
-    return status;
+  static toResponse(task) {
+    const { id, title, order, description, userId, boardId, columnId } = task;
+    return { id, title, order, description, userId, boardId, columnId };
   }
 }
 

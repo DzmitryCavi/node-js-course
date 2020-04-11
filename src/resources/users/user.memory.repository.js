@@ -1,13 +1,9 @@
 let usersData = require('../../data/data').users;
 const { unassignUser } = require('../tasks/tasks.memory.repository');
 
-const getAll = async () => {
-  return usersData;
-};
+const getAll = async () => usersData;
 
-const getById = async id => {
-  return usersData.find(user => user.id === id);
-};
+const getById = async id => usersData.find(user => user.id === id);
 
 const create = async data => {
   usersData.push(data);

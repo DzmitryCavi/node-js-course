@@ -1,47 +1,13 @@
-const Task = require('./tasks.model.js');
-const uuid = require('uuid');
+const tasksRepo = require('./tasks.memory.repository');
 
-const getByBoardId = (req, res) => {
-  Task.getByBoardId(req.params.boardId).then(result => {
-    if (result) {
-      res.status(200).json(result);
-    } else {
-      res.status(404).json();
-    }
-  });
-};
-
-const getByTaskIdAndBoardId = (req, res) => {
-  Task.getByTaskIdAndBoardId(req.params.boardId, req.params.taskId).then(
-    result => {
-      if (result) {
-        res.status(200).json(result);
-      } else {
-        res.status(404).json();
-      }
-    }
-  );
-};
-
-const create = (req, res) => {
-  req.body.id = uuid();
-  req.body.boardId = req.params.boardId;
-  Task.create(req.body).then(result => {
-    res.status(200).json(result);
-  });
-};
-
-const update = (req, res) => {
-  Task.update(req.params.boardId, req.params.taskId, req.body).then(result => {
-    res.status(200).json(result);
-  });
-};
-
-const deleteTaskById = (req, res) => {
-  Task.deleteTaskById(req.params.boardId, req.params.taskId).then(result => {
-    res.status(200).json(result);
-  });
-};
+const getByBoardId = boardId => tasksRepo.getByBoardId(boardId);
+const getByTaskIdAndBoardId = (boardId, taskId) =>
+  tasksRepo.getByTaskIdAndBoardId(boardId, taskId);
+const create = task => tasksRepo.create(task);
+const update = (boardId, taskId, data) =>
+  tasksRepo.update(boardId, taskId, data);
+const deleteTaskById = (boardId, taskId) =>
+  tasksRepo.deleteTaskById(boardId, taskId);
 
 module.exports = {
   getByBoardId,

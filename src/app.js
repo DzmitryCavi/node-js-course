@@ -10,6 +10,8 @@ const taskRouter = require('./resources/tasks/tasks.router');
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
+const { httpLogger, errorLogger } = require('./middlewares');
+
 app.use(express.json());
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
@@ -22,8 +24,12 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use(httpLogger);
+
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards', taskRouter);
+
+app.use(errorLogger);
 
 module.exports = app;
