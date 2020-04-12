@@ -18,7 +18,7 @@ class Task {
     this.boardId = boardId;
     this.columnId = columnId;
   }
-  static toResponse(task) {
+  static async toResponse(task) {
     const { id, title, order, description, userId, boardId, columnId } = task;
     return { id, title, order, description, userId, boardId, columnId };
   }

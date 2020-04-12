@@ -6,13 +6,16 @@ logger.stream = {
 };
 
 morgan.token('body', req => {
-  return JSON.stringify(req.body) || '';
+  return JSON.stringify(req.body);
 });
 
 morgan.token('params', req => {
-  return JSON.stringify(req.params) || '';
+  return JSON.stringify(req.params);
 });
 
-module.exports = morgan(':method :url :status :body :params', {
-  stream: logger.stream
-});
+module.exports = morgan(
+  ':method :url status-code::status body::body params::params',
+  {
+    stream: logger.stream
+  }
+);

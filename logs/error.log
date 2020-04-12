@@ -1,0 +1,10 @@
+2020-04-11 21:09:46:946 error: 400 Bad Request Validation Failed 
+Error massages:
+"id" with value "sad" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-11 21:11:02:112 error: 400 Bad Request Validation Failed 
+Error massages:
+"id" with value "sad" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-11 21:11:48:1148 error: 400 Bad Request Validation Failed 
+Error massages:
+"name" is required
+2020-04-11 21:12:19:1219 error: unhandledRejection

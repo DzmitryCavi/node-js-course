@@ -13,7 +13,8 @@ exports.getByBoardId = async (req, res) => {
 exports.create = async (req, res) => {
   req.body.boardId = req.params.boardId;
   const task = await taskService.create(new Task(req.body));
-  res.status(200).json(Task.toResponse(task));
+  const result = await Task.toResponse(task);
+  res.status(200).json(result);
 };
 
 exports.getByTaskIdAndBoardId = async (req, res) => {
@@ -22,7 +23,8 @@ exports.getByTaskIdAndBoardId = async (req, res) => {
       req.params.boardId,
       req.params.taskId
     );
-    res.status(200).json(Task.toResponse(task));
+    const result = await Task.toResponse(task);
+    res.status(200).json(result);
   } catch {
     res.status(404).send('Bad request');
   }
@@ -34,7 +36,8 @@ exports.update = async (req, res) => {
     req.params.taskId,
     req.body
   );
-  res.status(200).json(Task.toResponse(task));
+  const result = await Task.toResponse(task);
+  res.status(200).json(result);
 };
 
 exports.deleteTaskById = async (req, res) => {
