@@ -1,35 +1,33 @@
 const boardService = require('./boards.service');
-const Board = require('./boards.model');
+const catchErrors = require('../../common/catchErrors');
+const HttpStatus = require('http-status-codes');
 
-exports.getAll = async (req, res) => {
-  try {
-    const boards = await boardService.getAll();
-    res.status(200).json(boards);
-  } catch {
-    res.status(404).send('Bad request');
-  }
-};
+exports.getAll = catchErrors(async (req, res) => {
+  const boards = await boardService.getAll();
+  if (boards) {
+    res.status(HttpStatus.OK).json(boards.map(board => board.toResponse()));
+  } else res.status(HttpStatus.NOT_FOUND).send('not found!');
+});
 
-exports.create = async (req, res) => {
-  const board = await boardService.create(new Board(req.body));
-  res.status(200).json(Board.toResponse(board));
-};
+exports.create = catchErrors(async (req, res) => {
+  const board = await boardService.create(req.body);
+  res.status(HttpStatus.OK).json(board.toResponse());
+});
 
-exports.getById = async (req, res) => {
-  try {
-    const board = await boardService.getById(req.params.id);
-    res.status(200).json(Board.toResponse(board));
-  } catch {
-    res.status(404).send('Bad request');
-  }
-};
+exports.getById = catchErrors(async (req, res) => {
+  const board = await boardService.getById(req.params.id);
+  if (board) res.status(HttpStatus.OK).json(board.toResponse());
+  else res.status(HttpStatus.NOT_FOUND).send('Board not found!');
+});
 
-exports.update = async (req, res) => {
+exports.update = catchErrors(async (req, res) => {
   const board = await boardService.update(req.params.id, req.body);
-  res.status(200).json(Board.toResponse(board));
-};
+  if (board) res.status(HttpStatus.OK).send(board.toResponse() && board);
+  else res.status(HttpStatus.NO_CONTENT).send('No content!');
+});
 
-exports.deleteById = async (req, res) => {
-  const status = await boardService.deleteById(req.params.id);
-  res.status(204).json(status);
-};
+exports.deleteById = catchErrors(async (req, res) => {
+  const board = await boardService.deleteById(req.params.id);
+  if (board) res.status(HttpStatus.OK).send('Deleted !');
+  else res.status(HttpStatus.NO_CONTENT).send('No content!');
+});

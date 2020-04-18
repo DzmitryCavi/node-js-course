@@ -1,5 +1,5 @@
 const { Joi } = require('express-validation');
-
+Joi.objectId = require('joi-objectid')(Joi);
 module.exports = {
   // POST /users
   create: {
@@ -12,9 +12,7 @@ module.exports = {
   // GET-PUT-DELETE /users/:userId
   getById: {
     params: Joi.object({
-      id: Joi.string()
-        .regex(/^[-0-9a-zA-Z]{36}$/)
-        .required()
+      id: Joi.objectId().required()
     })
   },
   // PUT /users/:taskId

@@ -8,3 +8,44 @@ Error massages:
 Error massages:
 "name" is required
 2020-04-11 21:12:19:1219 error: unhandledRejection
+2020-04-18 17:26:38:2638 error: 400 Bad Request Validation Failed 
+Error massages:
+"userId" with value "1f7d5f95-7515-4b29-8d20-31f87c2e304f" fails to match the valid mongo id pattern
+2020-04-18 17:29:45:2945 error: 400 Bad Request Validation Failed 
+Error massages:
+"userId" with value "1f7d5f95-7515-4b29-8d20-31f87c2e304f" fails to match the valid mongo id pattern
+2020-04-18 17:32:35:3235 error: 400 Bad Request Validation Failed 
+Error massages:
+"userId" with value "1f7d5f95-7515-4b29-8d20-31f87c2e304f" fails to match the valid mongo id pattern
+2020-04-18 17:37:12:3712 error: uncaughtException
+2020-04-18 17:38:48:3848 error: uncaughtException
+2020-04-18 18:04:52:452 error: 400 Bad Request Validation Failed 
+Error massages:
+"boardId" with value "5e9b1714d55d052a3cca3aa5" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-18 18:04:52:452 error: 400 Bad Request Validation Failed 
+Error massages:
+"boardId" with value "5e9b1714d55d052a3cca3aa5" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-18 18:04:52:452 error: 400 Bad Request Validation Failed 
+Error massages:
+"boardId" with value "5e9b1714d55d052a3cca3aa5" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-18 18:04:52:452 error: 400 Bad Request Validation Failed 
+Error massages:
+"boardId" with value "5e9b1714d55d052a3cca3aa5" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-18 18:04:52:452 error: 400 Bad Request Validation Failed 
+Error massages:
+"boardId" with value "5e9b1714d55d052a3cca3aa5" fails to match the required pattern: /^[-0-9a-zA-Z]{36}$/
+2020-04-18 18:37:11:3711 error: 400 Bad Request Validation Failed 
+Error massages:
+"columns[0].order" must be a string
+2020-04-18 18:37:12:3712 error: 400 Bad Request Validation Failed 
+Error massages:
+"columns[0].order" must be a string
+2020-04-18 18:37:12:3712 error: 400 Bad Request Validation Failed 
+Error massages:
+"columns[0].order" must be a string
+2020-04-18 18:37:12:3712 error: 400 Bad Request Validation Failed 
+Error massages:
+"name" is not allowed
+2020-04-18 18:37:13:3713 error: 400 Bad Request Validation Failed 
+Error massages:
+"columns[0].order" must be a string

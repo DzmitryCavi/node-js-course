@@ -1,22 +1,26 @@
-const uuid = require('uuid');
+const { Schema, model } = require('mongoose');
+const Task = require('../tasks/tasks.model');
 
-class User {
-  constructor({
-    id = uuid(),
-    name = 'USER',
-    login = 'user',
-    password = 'P@55w0rd'
-  } = {}) {
-    this.id = id;
-    this.name = name;
-    this.login = login;
-    this.password = password;
-  }
+const userSchema = new Schema(
+  {
+    name: String,
+    login: String,
+    password: String
+  },
+  { versionKey: false }
+);
 
-  static toResponse(user) {
-    const { id, name, login } = user;
-    return { id, name, login };
+userSchema.methods.toResponse = function toResponse() {
+  const { id, name, login } = this;
+  return { id, name, login };
+};
+
+userSchema.post('findOneAndDelete', async user => {
+  if (user) {
+    await Task.updateMany({ userId: user._id.toHexString() }, { userId: null });
   }
-}
+});
+
+const User = model('User', userSchema);
 
 module.exports = User;
