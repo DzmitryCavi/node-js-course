@@ -1,11 +1,13 @@
-const uuid = require('uuid');
+const { Schema } = require('mongoose');
 
-class Column {
-  constructor({ id = uuid(), title = 'default column', order = 0 } = {}) {
-    this.id = id;
-    this.title = title;
-    this.order = order;
-  }
-}
+const columnSchema = new Schema({
+  title: String,
+  order: Number
+});
 
-module.exports = Column;
+columnSchema.methods.toResponse = function toResponse() {
+  const { id, title, order } = this;
+  return { id, title, order };
+};
+
+module.exports = columnSchema;

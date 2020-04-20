@@ -1,49 +1,38 @@
 const taskService = require('./tasks.service');
-const Task = require('./tasks.model');
+const catchErrors = require('../../common/catchErrors');
+const HttpStatus = require('http-status-codes');
 
-exports.getByBoardId = async (req, res) => {
-  try {
-    const tasks = await taskService.getByBoardId(req.params.boardId);
-    res.status(200).json(tasks);
-  } catch {
-    res.status(404).send('Bad request');
-  }
-};
+exports.getByBoardId = catchErrors(async (req, res) => {
+  const tasks = await taskService.getByBoardId(req.params.boardId);
+  if (tasks) {
+    res.status(HttpStatus.OK).json(tasks.map(task => task.toResponse()));
+  } else res.status(HttpStatus.NOT_FOUND).send('Not found!');
+});
 
-exports.create = async (req, res) => {
+exports.create = catchErrors(async (req, res) => {
   req.body.boardId = req.params.boardId;
-  const task = await taskService.create(new Task(req.body));
-  const result = await Task.toResponse(task);
-  res.status(200).json(result);
-};
+  const task = await taskService.create(req.body);
+  res.status(HttpStatus.OK).json(task.toResponse());
+});
 
-exports.getByTaskIdAndBoardId = async (req, res) => {
-  try {
-    const task = await taskService.getByTaskIdAndBoardId(
-      req.params.boardId,
-      req.params.taskId
-    );
-    const result = await Task.toResponse(task);
-    res.status(200).json(result);
-  } catch {
-    res.status(404).send('Bad request');
-  }
-};
+exports.getByTaskIdAndBoardId = catchErrors(async (req, res) => {
+  const { boardId, taskId } = req.params;
+  const task = await taskService.getByTaskIdAndBoardId(boardId, taskId);
+  if (task) res.status(HttpStatus.OK).json(task.toResponse());
+  else res.status(HttpStatus.NOT_FOUND).send('Not found!');
+});
 
-exports.update = async (req, res) => {
-  const task = await taskService.update(
-    req.params.boardId,
-    req.params.taskId,
-    req.body
-  );
-  const result = await Task.toResponse(task);
-  res.status(200).json(result);
-};
+exports.update = catchErrors(async (req, res) => {
+  const { boardId, taskId } = req.params;
+  const task = await taskService.update(boardId, taskId, req.body);
+  if (task) res.status(HttpStatus.OK).json(task.toResponse());
+  else res.status(HttpStatus.NO_CONTENT);
+});
 
-exports.deleteTaskById = async (req, res) => {
-  const status = await taskService.deleteTaskById(
-    req.params.boardId,
-    req.params.taskId
-  );
-  res.status(204).json(status);
-};
+exports.deleteTaskById = catchErrors(async (req, res) => {
+  const { boardId, taskId } = req.params;
+  const task = await taskService.deleteTaskById(boardId, taskId);
+  console.log(task);
+  if (task) res.status(HttpStatus.OK).send('deleted');
+  else res.status(HttpStatus.NO_CONTENT);
+});

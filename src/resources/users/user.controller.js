@@ -1,27 +1,30 @@
 const userService = require('./user.service');
-const User = require('./user.model');
+const catchErrors = require('../../common/catchErrors');
+const HttpStatus = require('http-status-codes');
 
-exports.getAll = async (req, res) => {
+exports.getAll = catchErrors(async (req, res) => {
   const users = await userService.getAll();
-  res.status(200).json(users);
-};
+  res.status(HttpStatus.OK).json(users.map(user => user.toResponse()));
+});
 
-exports.create = async (req, res) => {
-  const user = await userService.create(new User(req.body));
-  res.status(200).json(User.toResponse(user));
-};
+exports.create = catchErrors(async (req, res) => {
+  const user = await userService.create(req.body);
+  res.status(HttpStatus.OK).json(user.toResponse());
+});
 
-exports.getById = async (req, res) => {
+exports.getById = catchErrors(async (req, res) => {
   const user = await userService.getById(req.params.id);
-  res.status(200).json(User.toResponse(user));
-};
+  if (user) res.status(HttpStatus.OK).json(user.toResponse());
+  else req.status(HttpStatus.NOT_FOUND).json('User not found!');
+});
 
-exports.update = async (req, res) => {
+exports.update = catchErrors(async (req, res) => {
   const user = await userService.update(req.params.id, req.body);
-  res.status(200).json(User.toResponse(user));
-};
+  res.status(200).json(user.toResponse());
+});
 
-exports.deleteById = async (req, res) => {
+exports.deleteById = catchErrors(async (req, res) => {
   const status = await userService.deleteById(req.params.id);
-  res.status(200).json(status);
-};
+  if (status) res.status(HttpStatus.OK).json('Deleted');
+  else res.status(HttpStatus.NO_CONTENT).json('No content');
+});

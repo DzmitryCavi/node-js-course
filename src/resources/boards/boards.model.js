@@ -1,20 +1,23 @@
-const uuid = require('uuid');
-const Column = require('./column.model');
+const columnSchema = require('./column.model');
+const { Schema, model } = require('mongoose');
+const Task = require('../tasks/tasks.model');
 
-class Board {
-  constructor({
-    id = uuid(),
-    title = 'default board',
-    columns = [new Column()]
-  } = {}) {
-    this.id = id;
-    this.title = title;
-    this.columns = columns;
+const boardSchema = new Schema({
+  title: String,
+  columns: {
+    type: [columnSchema]
   }
-  static toResponse(board) {
-    const { id, title, columns } = board;
-    return { id, title, columns };
-  }
-}
+});
+
+boardSchema.methods.toResponse = function toResponse() {
+  const { id, title, columns } = this;
+  return { id, title, columns };
+};
+
+boardSchema.post('findOneAndDelete', async board => {
+  if (board) await Task.deleteMany({ boardId: board._id.toHexString() });
+});
+
+const Board = model('Board', boardSchema);
 
 module.exports = Board;
