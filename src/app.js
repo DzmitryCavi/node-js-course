@@ -6,11 +6,14 @@ const YAML = require('yamljs');
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/boards.router');
 const taskRouter = require('./resources/tasks/tasks.router');
+const authRouter = require('./resources/auth/auth.router');
+
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
-const { httpLogger, errorLogger } = require('./middlewares');
+const { httpLogger, errorLogger, auth } = require('./middlewares');
+
 
 app.use(express.json());
 
@@ -26,9 +29,10 @@ app.use('/', (req, res, next) => {
 
 app.use(httpLogger);
 
-app.use('/users', userRouter);
-app.use('/boards', boardRouter);
-app.use('/boards', taskRouter);
+app.use('/', authRouter);
+app.use('/users', auth, userRouter);
+app.use('/boards', auth, boardRouter);
+app.use('/boards', auth, taskRouter);
 
 app.use(errorLogger);
 
